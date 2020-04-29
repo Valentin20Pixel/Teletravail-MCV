@@ -68,12 +68,6 @@ class Produits extends CI_Controller
                 $config['file_name'] = $aId . '.' . $extension;
                 //fichiers autorisés
                 $config['allowed_types'] = 'gif|jpg|png';
-                //taille maximum  autorisée
-                $config['max_size'] = 300;
-                //largeur maximum  autorisée
-                $config['max_width'] = 1024;
-                //hauteur maximum  autorisée
-                $config['max_height'] = 768;
                 $this->load->library('upload');
                 // initialisation de config 
                 $this->upload->initialize($config);
@@ -97,16 +91,18 @@ class Produits extends CI_Controller
 
     public function modifier($id)
     {
+        
         $this->load->model('CategoriesModel');
         $aCategories = $this->CategoriesModel->liste();
         $aView["categories"] = $aCategories;
+
         $this->load->model('ProduitsModel');
         $aProduit = $this->ProduitsModel->produit($id);
         $aView["produit"] = $aProduit;
+
         $this->load->library('upload');
 
         if ($this->input->post()) {
-            $this->form_validation->set_error_delimiters('<div class="alert">', '</div>');
             $data = $this->input->post();
             unset($data["id"]);
             $id = $this->input->post('id');
@@ -120,24 +116,18 @@ class Produits extends CI_Controller
                     $extension = substr(strrchr($_FILES["pro_photo"]["name"], "."), 1);
                 }
                 $this->load->model('ProduitsModel');
-                $this->ProduitsModel->modifier($data, $id);
-                // chemin du fichier stocké
+
+                // On créer un tableau de configuration pour l'upload
                 $config['upload_path'] = './assets/img/';
-                // nom du fichier
-                $config['file_name'] = $id . '.' . $extension;
-                //fichiers autorisés
+                // nom du fichier final
+                $config['file_name'] = $id.'.'.$extension;
+                // On indique les types autorisés (ici pour des images)
                 $config['allowed_types'] = 'gif|jpg|png';
-                //taille maximum  autorisée
-                $config['max_size'] = 400;
-                //largeur maximum  autorisée
-                $config['max_width'] = 1024;
-                //hauteur maximum  autorisée
-                $config['max_height'] = 768;
 
                 $this->load->library('upload');
 
                 $this->upload->initialize($config);
-
+                
                 if (!$this->upload->do_upload('pro_photo')) {
                     $errors =  $this->upload->display_errors("<div class='alert alert-danger'>", "</div>");
                     $aView["errors"] = $errors;
@@ -147,6 +137,8 @@ class Produits extends CI_Controller
                 }
                 redirect("produits/liste");
             }
+        } else {     
+            $this->load->view('modifier', $aView);
         }
     } // -- modifier()
 

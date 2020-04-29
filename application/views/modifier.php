@@ -1,12 +1,18 @@
-<?php include "header.php"; ?>
 <?php
+include "header.php";
 echo validation_errors();
 echo form_open_multipart();
 ?>
-<div class="container-fluid">
+
+<body>
+
+<div class="container-fluid"> 
+
 <div class="form-group">
-    <label for="pro_photo">Téléchargement de la photo</label>
-    <input type="file" name="pro_photo" id="pro_photo">
+	<label for="pro_photo">Téléchargement</label>
+	<input type="file" name="pro_photo" id="pro_photo">
+	<?php echo form_error('errors'); ?>
+	<?php echo form_error('pro_photo'); ?>
 </div>
 
 <div class="form-group">
@@ -69,3 +75,4 @@ echo form_open_multipart();
 </form>
 </div>
 <?php include("footer.php"); ?>
+</body>

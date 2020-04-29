@@ -8,8 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Jarditou</title>
 
-  <link rel="stylesheet" href="assets/CSS/css.css">
-  <link rel="stylesheet" href="assets/CSS/csscircle.css">
+  <link rel="stylesheet" href="<?php echo base_url("assets/css/style.css"); ?>">
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Merriweather|Nosifer|Rock+Salt&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
