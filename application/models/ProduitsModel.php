@@ -33,9 +33,25 @@ class ProduitsModel extends CI_Model
 
     public function modifier($data,$id) 
     {
-        $this->db->update('jdt_produits', $data, array('pro_id' => $id));
-            
-        } 
+         // chargement/connexion à la BDD
+        $this->load->database();
+         // stockage du résultat de l'upload dans un tableau
+        $file = $this->upload->data();
+         // stockage des données du formulaire dans un tableau
+        $data = $this->input->post();
+         // S'il y a upload d'image
+        if ($this->upload->do_upload('pro_photo'))
+        {
+         // récupération de l'extension du fichier en vue de son insertion en base de données et extraction du '.' (codeigniter garde le point avant l'extension)
+            $data['pro_photo'] = substr($file['file_ext'], 1);
+        }
+         // récupération et formatage de la date (date courante) d'ajout du produit
+        $data['pro_d_modif'] = date('Y-m-d');
+         // envoie de la requète
+        $this->db->where('pro_id', $id);
+        $this->db->update('produits', $data);        
+    }
+
 
     public function supprimer($id) 
     {
@@ -43,4 +59,4 @@ class ProduitsModel extends CI_Model
         
     }
     
-}
+};
